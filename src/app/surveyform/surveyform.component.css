@@ -1,0 +1,44 @@
+/* Form container */
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Input box style */
+  .input-box {
+    margin-bottom: 15px;
+  }
+  
+  .input-box input[type="text"], 
+  .input-box input[type="email"], 
+  .submit-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Ensures padding and border are included in element's total width and height */
+  }
+  
+  /* Submit button style */
+  .submit-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .submit-button:hover {
+    background-color: #45a049;
+  }
+
+  .submit-button:disabled {
+    /* Styles for disabled state */
+    background-color: #cccccc; /* Light gray */
+    cursor: not-allowed;
+  }
+  

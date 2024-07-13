@@ -1,3 +1,116 @@
+<div class="form-container">
+    <form #form = "ngForm" (ngSubmit)="onSubmit(surveyForm)" #surveyForm = "ngForm">
+        <!---First Name--->
+        <div class="input-box">
+            <label>First Name</label>
+            <input type="text" id="firstName" name="firstName" [(ngModel)]="formData.firstName" required #firstName="ngModel" placeholder="John" pattern="[a-zA-Z]*" ngModel required>
+            <span *ngIf="firstName.invalid && firstName.touched" style="color: red;">Please enter a name with only alphabetic characters.</span>
+        </div>
+        <!---Last Name--->
+        <div class="input-box">
+            <label>Last Name</label>
+            <input type="text" id="lastName" name="lastName" [(ngModel)]="formData.lastName" required #lastName="ngModel" placeholder="Doe" pattern="[a-zA-Z]*" ngModel required>
+            <span *ngIf="lastName.invalid && lastName.touched" style="color: red;">Please enter a name with only alphabetic characters.</span>
+        </div>
+        <!---Country--->
+        <div class="input-box">
+            <label for="country">Country</label>
+            <select id="country" name="country" [(ngModel)]="formData.country" required #country="ngModel" class="form-control" ngModel required>
+                <option value="default" disabled>Select your country</option>
+                <option value="united_states">United States</option>
+                <option value="united_kingdom">United Kingdom</option>
+                <option value="australia">Australia</option>
+                <option value="other">Other</option>
+            </select>
+            <span *ngIf="country.invalid && country.touched" style="color: red;">Please select a country.</span>
+        </div>
+        <!---Address--->
+        <div class="input-box">
+            <label for="streetAddress">Street Address</label>
+            <input type="text" id="streetAddress" name="streetAddress" [(ngModel)]="formData.streetAddress" 
+                   #streetAddress="ngModel" placeholder="1600 Pennsylvania Ave." 
+                   pattern="[a-zA-Z0-9\s]*" required>
+            <span *ngIf="streetAddress.invalid && streetAddress.touched" style="color: red;">Please enter your street address with alphanumeric characters only.</span>
+        </div>
+        <!---City--->
+        <div class="input-box">
+            <label>City</label>
+            <input type="text" id="city" name="city" [(ngModel)]="formData.city" #city="ngModel" placeholder="Boston" ngModel pattern="[a-zA-Z0-9\s]*" required>
+            <span *ngIf="city.invalid && city.touched" style="color: red;">Please enter your city with alphanumeric characters only.</span>
+        </div>
+        <!---State--->
+        <div class="input-box">
+            <label for="state">State</label>
+            <select id="state" name="state" [(ngModel)]="formData.state" #state="ngModel" class="form-control" ngModel required>
+                <option value="default" disabled>Select your state</option>
+                <option value="Alabama">Alabama</option>
+                <option value="Alaska">Alaska</option>
+                <option value="Arizona">Arizona</option>
+                <option value="Arkansas">Arkansas</option>
+                <option value="California">California</option>
+                <option value="Colorado">Colorado</option>
+                <option value="Connecticut">Connecticut</option>
+                <option value="Delaware">Delaware</option>
+                <option value="Florida">Florida</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Hawaii">Hawaii</option>
+                <option value="Idaho">Idaho</option>
+                <option value="Illinois">Illinois</option>
+                <option value="Indiana">Indiana</option>
+                <option value="Iowa">Iowa</option>
+                <option value="Kansas">Kansas</option>
+                <option value="Kentucky">Kentucky</option>
+                <option value="Louisiana">Louisiana</option>
+                <option value="Maine">Maine</option>
+                <option value="Maryland">Maryland</option>
+                <option value="Massachusetts">Massachusetts</option>
+                <option value="Michigan">Michigan</option>
+                <option value="Minnesota">Minnesota</option>
+                <option value="Mississippi">Mississippi</option>
+                <option value="Missouri">Missouri</option>
+                <option value="Montana">Montana</option>
+                <option value="Nebraska">Nebraska</option>
+                <option value="Nevada">Nevada</option>
+                <option value="New Hampshire">New Hampshire</option>
+                <option value="New Jersey">New Jersey</option>
+                <option value="New Mexico">New Mexico</option>
+                <option value="New York">New York</option>
+                <option value="North Carolina">North Carolina</option>
+                <option value="North Dakota">North Dakota</option>
+                <option value="Ohio">Ohio</option>
+                <option value="Oklahoma">Oklahoma</option>
+                <option value="Oregon">Oregon</option>
+                <option value="Pennsylvania">Pennsylvania</option>
+                <option value="Rhode Island">Rhode Island</option>
+                <option value="South Carolina">South Carolina</option>
+                <option value="South Dakota">South Dakota</option>
+                <option value="Tennessee">Tennessee</option>
+                <option value="Texas">Texas</option>
+                <option value="Utah">Utah</option>
+                <option value="Vermont">Vermont</option>
+                <option value="Virginia">Virginia</option>
+                <option value="Washington">Washington</option>
+                <option value="West Virginia">West Virginia</option>
+                <option value="Wisconsin">Wisconsin</option>
+                <option value="Wyoming">Wyoming</option>
+            </select>
+            <span *ngIf="state.invalid && state.touched" style="color: red;">Please select a state.</span>
+        </div>
+        <!---Zip--->
+        <div class="input-box">
+            <label>Zipcode</label>
+            <input type="text" id="zipcode" name="zipcode" [(ngModel)]="formData.zipCode" #zipcode="ngModel" placeholder="90210" ngModel pattern="[0-9]{5}" required>
+            <span *ngIf="zipcode.invalid && zipcode.touched" style="color: red;">Please enter a zipcode in the format 12345.</span>
+        </div>
+        <!---Check boxes (What you liked most)--->
+        <!---Radio Buttons(How they became interested in the university)--->
+        <!---Drop down list (Likelihood of recommendation)--->
+        <!---Text Area (Additional comments)--->
 
-<!---Header for survey page--->
-<p>Survey</p>
+        <!---Submit Button--->
+        <div>
+            <input type="submit" value="Submit" class="submit-button" [disabled]="surveyForm.invalid">
+            <button type="button" class="clear-button" (click)="onCancel(surveyForm)">Cancel</button>
+        </div>
+    </form>
+</div>
