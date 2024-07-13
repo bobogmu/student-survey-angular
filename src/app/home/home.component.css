@@ -1,0 +1,27 @@
+/* Custom styles for the card */
+.card {
+    background-color: #f8f9fa; /* Light background color */
+    border: 1px solid #dee2e6; /* Light border color */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+/* Custom styles for the card body */
+.card-body {
+    padding: 20px; /* Increased padding */
+}
+
+/* Custom styles for the card title */
+.card-title {
+    font-size: 1.5rem; /* Larger font size */
+    font-weight: bold; /* Bold text */
+    color: #343a40; /* Dark text color */
+    margin-bottom: 15px; /* Spacing below the title */
+}
+
+/* Custom styles for the card text */
+.card-text {
+    font-size: 1.1rem; /* Slightly larger font size */
+    color: #6c757d; /* Medium text color */
+    line-height: 1.6; /* Increased line height for readability */
+}

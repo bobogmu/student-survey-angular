@@ -5,7 +5,10 @@ header {
     background-color: #FFCC33;
     color: #006633;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1); /* Box shadow styling */
-  }
+    padding: 20px;
+    border: 8px solid #006633;
+
+}
   
 /* Main header box*/
 .main-heading{
@@ -17,5 +20,12 @@ header {
 /* Main Text*/
 .main-heading h1{
     font-size: 50px;
+}
+
+/*Style navbar*/
+.navbar-nav .nav-link {
+    font-size: 18px; /* Adjust the font size as needed */
+    font-weight: bold; /* Make the font bold */
+    padding: 0.5rem 1rem; /* Adjust padding for better spacing */
 }
   

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WelcomebodyComponent } from './welcomebody.component';
+import { EntryviewerComponent } from './entryviewer.component';
 
-describe('WelcomebodyComponent', () => {
-  let component: WelcomebodyComponent;
-  let fixture: ComponentFixture<WelcomebodyComponent>;
+describe('EntryviewerComponent', () => {
+  let component: EntryviewerComponent;
+  let fixture: ComponentFixture<EntryviewerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WelcomebodyComponent]
+      imports: [EntryviewerComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(WelcomebodyComponent);
+    fixture = TestBed.createComponent(EntryviewerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
