@@ -1,3 +1,9 @@
+/**
+   *  Authors: Brett Burcher, Momal Noori
+   *  Geroge Mason University, SWE642, Assignment 3
+   *  Date: 7/15/24
+   */
+
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { Routes } from '@angular/router';

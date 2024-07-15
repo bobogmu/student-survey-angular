@@ -1,5 +1,15 @@
+<!--- Authors: Brett Burcher, Momal Noori-->
+<!--- Geroge Mason University, SWE642, Assignment 3 --->
+<!--- Date: 7/15/24 --->
+
 <div class="form-container">
     <form #form = "ngForm" (ngSubmit)="onSubmit(surveyForm)" #surveyForm = "ngForm">
+        <!---Date--->
+        <div class="input-box">
+            <label>Date</label>
+            <input type="date" id="date" name="date" [(ngModel)]="formData.date" required #date="ngModel">
+            <span *ngIf="date.invalid && date.touched" style="color: red;">Please enter the date.</span>
+        </div>
         <!---First Name--->
         <div class="input-box">
             <label>First Name</label>
@@ -16,7 +26,7 @@
         <div class="input-box">
             <label for="country">Country</label>
             <select id="country" name="country" [(ngModel)]="formData.country" required #country="ngModel" class="form-control" ngModel required>
-                <option value="default" disabled>Select your country</option>
+                <option value="" disabled>Select your country</option>
                 <option value="united_states">United States</option>
                 <option value="united_kingdom">United Kingdom</option>
                 <option value="australia">Australia</option>
@@ -42,7 +52,7 @@
         <div class="input-box">
             <label for="state">State</label>
             <select id="state" name="state" [(ngModel)]="formData.state" #state="ngModel" class="form-control" ngModel required>
-                <option value="default" disabled>Select your state</option>
+                <option value="" disabled>Select your state</option>
                 <option value="Alabama">Alabama</option>
                 <option value="Alaska">Alaska</option>
                 <option value="Arizona">Arizona</option>
@@ -102,11 +112,84 @@
             <input type="text" id="zipcode" name="zipcode" [(ngModel)]="formData.zipCode" #zipcode="ngModel" placeholder="90210" ngModel pattern="[0-9]{5}" required>
             <span *ngIf="zipcode.invalid && zipcode.touched" style="color: red;">Please enter a zipcode in the format 12345.</span>
         </div>
+        <!---Telepohone--->
+        <div class="input-box">
+            <label>Phone Number</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="formData.phoneNumber" #phoneNumber="ngModel" placeholder="5551114444" ngModel pattern="[0-9]{10}" required>
+            <span *ngIf="phoneNumber.invalid && phoneNumber.touched" style="color: red;">Please enter a valid US phone number.</span>
+        </div>
+        <!---Email--->
+        <div class="input-box">
+            <label>Email</label>
+            <input type="email" id="email" name="email" [(ngModel)]="formData.email" #email="ngModel" placeholder="johndoe@email.com" ngModel pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
+            <span *ngIf="email.invalid && email.touched" style="color: red;">Please enter a valid email address.</span>
+        </div>
         <!---Check boxes (What you liked most)--->
+        <div class="input-box checkbox-container">
+            <label>What did you like most about the campus?</label>
+            <div>
+                <label><input type="checkbox" name="likedMostStudents" value="students" [(ngModel)]="formData.likedMost_students"> Students</label>
+            </div>
+            <div>
+                <label><input type="checkbox" name="likedMostLocation" value="location" [(ngModel)]="formData.likedMost_location"> Location</label>
+            </div>
+            <div>
+                <label><input type="checkbox" name="likedMostCampus" value="campus" [(ngModel)]="formData.likedMost_campus"> Campus</label>
+            </div>
+            <div>
+                <label><input type="checkbox" name="likedMostAtmosphere" value="atmosphere" [(ngModel)]="formData.likedMost_atmosphere"> Atmosphere</label>
+            </div>
+            <div>
+                <label><input type="checkbox" name="likedMostDorms" value="dormRooms" [(ngModel)]="formData.likedMost_dormRooms"> Dorm Rooms</label>
+            </div>
+            <div>
+                <label><input type="checkbox" name="likedMostSports" value="sports" [(ngModel)]="formData.likedMost_sports"> Sports</label>
+            </div>
+        </div>
         <!---Radio Buttons(How they became interested in the university)--->
+        <div class="input-box radio-container">
+            <label>How did you hear about us?</label>
+            <div>
+                <div class="radio-option">
+                    <label>
+                        <input type="radio" name="howDidYouHear" [(ngModel)]="formData.howDidYouHear" value="friends" required> Friends
+                    </label>
+                </div>
+                <div class="radio-option">
+                    <label>
+                        <input type="radio" name="howDidYouHear" [(ngModel)]="formData.howDidYouHear" value="television"> Television
+                    </label>
+                </div>
+                <div class="radio-option">
+                    <label>
+                        <input type="radio" name="howDidYouHear" [(ngModel)]="formData.howDidYouHear" value="internet"> Internet
+                    </label>
+                </div>
+                <div class="radio-option">
+                    <label>
+                        <input type="radio" name="howDidYouHear" [(ngModel)]="formData.howDidYouHear" value="other"> Other
+                    </label>
+                </div>    
+            </div>
+            <span *ngIf="!formData.howDidYouHear" style="color: red;">Please select how you heard about us.</span>
+        </div>
         <!---Drop down list (Likelihood of recommendation)--->
+        <div class="input-box">
+            <label>Likelihood of Recommendation</label>
+            <select id="likelihood" name="likelihood" #recommendationLikelihood="ngModel" [(ngModel)]="formData.recommendationLikelihood" required>
+                <option value="" disabled>Select likelihood</option>
+                <option value="very_likely">Very Likely</option>
+                <option value="likely">Likely</option>
+                <option value="unlikely">Unlikely</option>
+            </select>
+            <span *ngIf="!formData.recommendationLikelihood" style="color: red;">Please select likelihood of recommendation.</span>
+        </div>
         <!---Text Area (Additional comments)--->
-
+        <!-- Short answer text box -->
+        <div class="input-box">
+            <label>Additional Comments</label>
+            <textarea id="additionalComments" name="additionalComments" [(ngModel)]="formData.additionalComments"></textarea>
+        </div>
         <!---Submit Button--->
         <div>
             <input type="submit" value="Submit" class="submit-button" [disabled]="surveyForm.invalid">

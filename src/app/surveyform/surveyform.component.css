@@ -1,3 +1,7 @@
+/* Authors: Brett Burcher, Momal Noori */
+/* Geroge Mason University, SWE642, Assignment 3 */
+/* Date: 7/15/24 */
+
 /* Form container */
 .form-container {
     max-width: 400px;
@@ -6,39 +10,129 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
-  }
+}
   
-  /* Input box style */
-  .input-box {
+/* Input box style */
+.input-box {
     margin-bottom: 15px;
-  }
-  
-  .input-box input[type="text"], 
-  .input-box input[type="email"], 
-  .submit-button {
+}
+
+/*Style input type for text, email, and date to match input box*/
+.input-box input[type="text"], 
+.input-box input[type="email"],
+.input-box input[type="date"], 
+
+/* Submit button Structure */
+.submit-button {
     width: 100%;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-sizing: border-box; /* Ensures padding and border are included in element's total width and height */
-  }
+    box-sizing: border-box;    
+}
   
-  /* Submit button style */
-  .submit-button {
+/* Submit button style */
+.submit-button {
     background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
-  }
-  
-  .submit-button:hover {
-    background-color: #45a049;
-  }
+}
 
-  .submit-button:disabled {
-    /* Styles for disabled state */
-    background-color: #cccccc; /* Light gray */
+/* cancel/clear button style and structure */
+.clear-button{
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #999d99;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Submit button hover effect */
+.submit-button:hover {
+    background-color: #45a049;
+}
+
+/* Submit Disabled style */
+.submit-button:disabled {
+    background-color: #cccccc; 
     cursor: not-allowed;
-  }
+}
+
+/* Checkbox container */
+.checkbox-container {
+    margin-bottom: 15px;
+}
+
+/* Checkbox input style */
+.checkbox-container input[type="checkbox"] {
+    margin-right: 10px; 
+    cursor: pointer; 
+}
+
+/* Checkbox label style */
+.checkbox-container label {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer; 
+}
+
+/* Radio button container */
+.radio-container {
+    margin-bottom: 15px;
+}
+
+/*Spaces out radio options*/
+.radio-option {
+    margin-bottom: 5px;
+}
+
+/* Radio button input style */
+.radio-container input[type="radio"] {
+    margin-right: 2px; 
+    cursor: pointer; 
+}
+
+/* Radio button label style */
+.radio-container label {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer; 
+}
+
+/* Dropdown container */
+.input-box select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; 
+}
+
+/* Short answer text area input type */
+.input-box textarea {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; 
+    resize: vertical;
+}
+
+/* Error message style */
+.input-box span {
+    color: red;
+    display: block; 
+    margin-top: 5px;
+}
+
   
