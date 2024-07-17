@@ -4,10 +4,10 @@
 
 /* Custom styles for the card */
 .card {
-    background-color: #f8f9fa; /* Light background color */
-    border: 1px solid #dee2e6; /* Light border color */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    background-color: #f8f9fa; 
+    border: 1px solid #dee2e6; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     margin: 20px;
 }
 
@@ -18,15 +18,77 @@
 
 /* Custom styles for the card title */
 .card-title {
-    font-size: 1.5rem; /* Larger font size */
-    font-weight: bold; /* Bold text */
-    color: #343a40; /* Dark text color */
-    margin-bottom: 15px; /* Spacing below the title */
+    font-size: 1.5rem; 
+    font-weight: bold; 
+    color: #343a40; 
+    margin-bottom: 15px; 
 }
 
 /* Custom styles for the card text */
 .card-text {
-    font-size: 1.1rem; /* Slightly larger font size */
-    color: #6c757d; /* Medium text color */
-    line-height: 1.6; /* Increased line height for readability */
+    font-size: 1.1rem; 
+    color: #6c757d; 
+    line-height: 1.6;
+}
+
+/* Edit Button styling */
+.edit-button {
+    background-color: #4CAF50; 
+    border: none;              
+    color: white;              
+    padding: 15px 32px;        
+    text-align: center;        
+    text-decoration: none;     
+    display: inline-block;     
+    font-size: 16px;           
+    margin: 4px 2px;           
+    transition-duration: 0.4s; 
+    cursor: pointer;           
+}
+
+/* Edit Button styling */
+.edit-button:hover {
+    background-color: white; 
+    color: black;            
+    border: 2px solid #4CAF50; 
+}
+
+/* Delete Button styling */
+.delete-button {
+    background-color: #ff0000; 
+    border: none;              
+    color: white;              
+    padding: 15px 32px;        
+    text-align: center;        
+    text-decoration: none;     
+    display: inline-block;     
+    font-size: 16px;           
+    margin: 4px 2px;           
+    transition-duration: 0.4s; 
+    cursor: pointer;           
+}
+  
+/* Delete Button styling */
+.delete-button:hover {
+    background-color: white; 
+    color: black;            
+    border: 2px solid #ff0000; 
+}
+
+/* Drop down box to select survey */
+.survey-list-box{
+    padding: 20px;
+    background-color: #f8f9fa; 
+    border: 1px solid #dee2e6; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    margin: 20px auto;
+}
+
+/* List form/group styling for survey lists */
+.survey-list {
+    padding: 15px; 
+    background-color: #f8f9fa; 
+    border-radius: 5px; 
+    border: 1px solid #ddd; 
 }

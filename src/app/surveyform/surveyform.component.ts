@@ -70,6 +70,7 @@ export class SurveyformComponent {
     console.log('Additional Comments:', this.formData.additionalComments)
 
     // TODO: Sends data to server/database
+    console.log("TODO: Send data to server");
   }
 
   /**

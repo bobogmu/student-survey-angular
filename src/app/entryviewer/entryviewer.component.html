@@ -1,13 +1,45 @@
+<!--- Authors: Brett Burcher, Momal Noori-->
+<!--- Geroge Mason University, SWE642, Assignment 3 --->
+<!--- Date: 7/17/24 --->
+
+
+<!---Instructions text block--->
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Instructions</h5>
-                    <p class="card-text">Select a survey entry from below to view the results, update, and edit it.</p>
+                    <p class="card-text">Select a survey entry from below to view the results, update, or delete it.  Surveys must have unique emails.</p>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<!---Edit and Delete Buttons--->
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <button class="btn edit-button" (click)="onEdit()">Edit Entry</button>
+      </div>
+      <div class="col-auto">
+        <button class="btn delete-button" (click)="onDelete()">Delete Entry</button>
+      </div>
+    </div>
+</div>
+
+<!---List of surveys from server--->
+<div class="container mt-5 survey-list-box">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group survey-list">
+          <label for="surveyDropdown">Select a Survey:</label>
+          <select class="form-control" id="surveyDropdown" [(ngModel)]="selectedSurvey" (ngModelChange)="onSurveyChange($event)">
+            <option *ngFor="let option of surveyOptions">{{ option }}</option>
+          </select>
+        </div>
+      </div>
     </div>
 </div>
 
