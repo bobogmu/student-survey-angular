@@ -62,6 +62,7 @@ export class SurveyformComponent implements OnInit  {
   onSubmit(form: NgForm){
 
     // Print data for validation
+    console.log("--- User data on submit ---");
     console.log('Date:', this.formData.date);
     console.log('First Name:', this.formData.firstName);
     console.log('Last Name:', this.formData.lastName);
@@ -81,9 +82,10 @@ export class SurveyformComponent implements OnInit  {
     console.log('How Did You Hear about us:', this.formData.howDidYouHear)
     console.log('Likelihood of recommendation:', this.formData.recommendationLikelihood)
     console.log('Additional Comments:', this.formData.additionalComments)
+    console.log("------");
 
-    // TODO: Sends data to server/database
-    console.log("Sending data to server");
+    // ends data to server/database
+    this.surveyService.handleSubmit(this.formData);
 
   }
 
@@ -125,7 +127,7 @@ export class SurveyformComponent implements OnInit  {
     form.controls['phoneNumber'].markAsUntouched();
     form.controls['email'].markAsUntouched();
     console.log("Cleared form data");
-    this.surveyService.sendSurveyData("XYZ");
+    this.surveyService.testFunction();
 
   }
 

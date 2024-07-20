@@ -36,33 +36,27 @@ export class SurveyService {
   private apiUrl = 'http://localhost:8080/surveys';
   private headers = new HttpHeaders({ 'Content-Type': 'text/plain' });
 
-  // Method to send survey data to the server
-  sendSurveyData(surveyData: any) {
+  handleSubmit(surveyData: any){
 
-    const dummySurvey: StudentSurvey = {
-      email: 'test@example.com',
-      firstName: 'John',
-      lastName: 'Doe',
-      date: '2024-07-20', // Format according to your backend's expectation
-      streetAddress: '123 Main St',
-      city: 'Springfield',
-      state: 'IL',
-      zipCode: 62704,
-      phoneNumber: 1234567890,
-      likedMost_students: true,
-      likedMost_location: false,
-      likedMost_campus: true,
-      likedMost_atmosphere: false,
-      likedMost_dormRooms: true,
-      likedMost_sports: false,
-      howDidYouHear: 'Friend',
-      recommendationLikelihood: 'Highly Likely',
-      additionalComments: 'Great experience overall!'
-    };
+    this.sendSurveyData(surveyData).subscribe({
+      next: (response) => {
+        console.log('Survey data sent successfully', response);
+      },
+      error: (err) => {
+        console.error('Error sending survey data', err);
+      }
+    });
+  }
 
-    console.log("Sending data to server");
+  sendSurveyData(surveyData: any): Observable<any> {
+    // Perform a POST request to send data
+    console.log("Sending survey data to server");
+    return this.http.post<any>(this.apiUrl, surveyData);
+  }
+
+  testFunction(){
     const survey: String = "test";
-    this.getSurveys().subscribe({
+    this.testGET().subscribe({
       next: (data) => {
         this.surveyText = data;
         console.log('Surveys:', this.surveyText);
@@ -71,11 +65,10 @@ export class SurveyService {
         console.error('Error fetching surveys:', err);
       }
     });
-    
   }
 
-  getSurveys(): Observable<string> {
+  // TODO: REMOVE
+  testGET(): Observable<string> {
     return this.http.get(this.apiUrl, { responseType: 'text' });
-
   }
 }
