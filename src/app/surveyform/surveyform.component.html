@@ -192,8 +192,8 @@
         </div>
         <!---Submit Button--->
         <div>
-            <input type="submit" value="Submit" class="submit-button" [disabled]="surveyForm.invalid">
-            <button type="button" class="clear-button" (click)="onCancel(surveyForm)">Cancel</button>
+            <input type="submit" value="Submit" class="submit-button" [disabled]="surveyForm.invalid || formDisabled">
+            <button type="button" class="clear-button"  (click)="onCancel(surveyForm)" [disabled]="formDisabled">Cancel</button>
         </div>
     </form>
 </div>

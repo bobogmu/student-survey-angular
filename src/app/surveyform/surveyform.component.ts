@@ -25,6 +25,11 @@ import { SurveyService } from '../survey.service';
 
 export class SurveyformComponent implements OnInit  { 
 
+
+  // Provides access to NgFrom object from HTML
+  @ViewChild('surveyForm', { static: true }) surveyForm!: NgForm;
+
+  // Defines object to handle form data
   formData = {
     date: '',
     firstName: '',
@@ -47,6 +52,10 @@ export class SurveyformComponent implements OnInit  {
     additionalComments: ''
   };
 
+  // Variable to control if submit button is disabled.  Useful for other components
+  formDisabled = false;
+
+  // Provides instance of survey service for HTTP actions
   constructor(private surveyService: SurveyService) {}
 
   ngOnInit() {
@@ -84,6 +93,9 @@ export class SurveyformComponent implements OnInit  {
 
     // ends data to server/database
     this.surveyService.handleSubmit(this.formData);
+
+    // Reload page after submit to sync broswer with server
+    location.reload()
 
   }
 
@@ -125,8 +137,22 @@ export class SurveyformComponent implements OnInit  {
     form.controls['phoneNumber'].markAsUntouched();
     form.controls['email'].markAsUntouched();
     console.log("Cleared form data");
-    //this.surveyService.getSurveys();
-    this.surveyService.requestAllSurveys();
+  }
+
+  /**
+   *  Description: Access points for components to disabled survey form component.
+   */
+  disableForm() {
+    this.formDisabled = true;
+    this.surveyForm.form.disable();
+  }
+
+  /**
+   *  Description: Access points for components to enable survey form component.
+   */
+  enableForm() {
+    this.formDisabled = false;
+    this.surveyForm.form.enable();
   }
 
 }

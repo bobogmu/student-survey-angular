@@ -54,6 +54,12 @@
     cursor: pointer;
 }
 
+/* Clear button Disabled style */
+.clear-button:disabled {
+    background-color: #cccccc; 
+    cursor: not-allowed;
+}
+
 /* Submit button hover effect */
 .submit-button:hover {
     background-color: #45a049;

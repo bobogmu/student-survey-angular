@@ -94,7 +94,6 @@ export class SurveyService {
 
         // Update list of emails for tracking purposes
         this.updateEmails(this.surveyData);
-        console.log(this.emails); //TODO: REMOVE
         console.log('Surveys:', this.surveyData);
       },
       error: (err) => {
@@ -128,5 +127,26 @@ export class SurveyService {
     return this.http.get<StudentSurvey[]>(this.apiUrl).pipe(
       map(surveys => surveys.map(survey => survey.email))
     );
+  }
+
+  /**
+   *  Description: Delets a specific email from the server.
+   *  @return: email - Email/id to delete from server.
+   */
+  deleteByEmail(email: string): void {
+
+    // Check that the email isn't null (happens when delete called on default dropdown)
+    if (email.trim() !== ''){
+      const deleteUrl = `${this.apiUrl}/${email}`; 
+      console.log(`Sending DELETE request to: ${deleteUrl}`);
+      this.http.delete<any>(deleteUrl, { responseType: 'text' as 'json' }).subscribe({
+      next: (response) => {
+        console.log('Delete response:', response);
+      },
+      error: (error) => {
+        console.error('Error deleting survey:', error);
+      }
+    });
+    }
   }
 }

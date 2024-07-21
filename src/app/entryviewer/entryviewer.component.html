@@ -24,7 +24,7 @@
         <button class="btn edit-button" (click)="onEdit()">Edit Entry</button>
       </div>
       <div class="col-auto">
-        <button class="btn delete-button" (click)="onDelete()">Delete Entry</button>
+        <button class="btn delete-button" (click)="onDelete(selectedSurvey)">Delete Entry</button>
       </div>
     </div>
 </div>
@@ -36,7 +36,8 @@
         <div class="form-group survey-list">
           <label for="surveyDropdown">Select a Survey:</label>
           <select class="form-control" id="surveyDropdown" [(ngModel)]="selectedSurvey" (ngModelChange)="onSurveyChange($event)">
-            <option *ngFor="let option of surveyOptions">{{ option }}</option>
+            <option value="" disabled>Select a Survey</option>
+            <option *ngFor="let option of surveyOptions" [value]="option">{{ option }}</option>
           </select>
         </div>
       </div>

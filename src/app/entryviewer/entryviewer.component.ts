@@ -1,16 +1,7 @@
-/***
-   * My thought was to pull the survey component into here. This will give us fields, and the submit and edit button. 
-   * 
-   * We can have the typescript grab all surveys on load and put the names in a dropdown list.  
-   * 
-   * When the user selects a survey, the survey component being used in EntryViewer will be sent all this data and saved locally.
-   * Select a survey from the dropdown list will also sent a command from EntryViewed to SurveyFrom to disable the form.  
-   * 
-   * if they hit delete, the survey entries will be deleted form the DB and the current form will be cleared.
-   * 
-   * If they hit edit, the SurveyFrom will be sent a command to unlock the form.  When they hit submit, it will send the form to the 
-   * database.  We can make it so the database keys are email, which is more likely unique than name.
-   * 
+/**
+   *  Authors: Brett Burcher, Momal Noori
+   *  Geroge Mason University, SWE642, Assignment 3
+   *  Date: 7/15/24
    */
 
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
@@ -51,24 +42,24 @@ interface StudentSurvey {
 })
 export class EntryviewerComponent implements AfterViewInit  {
 
+  // Provides instance of survey service
   constructor(private surveyService: SurveyService) { }
 
-
+  // Gets access to surveyFrom from SurveyFormComponenet
   @ViewChild(SurveyformComponent) surveyForm!: SurveyformComponent;
   
-  /* TODO: This would be a list we would pull from the database, then we do GET on the option they select */
+  // List of emails bound to dropdown list
   surveyOptions: string[] = [];
 
   // The actively selected survey
-  selectedSurvey: string = '';
+  selectedSurvey: string = ''; 
 
   /**
-   *  Description: After view init, calls functions critical to first time load.
+   *  Description: After view init, calls function to update data.
    */
   ngAfterViewInit() {
     console.log("Loading survey options");
     this.loadSurveyOptions();
-    
   }
 
 
@@ -77,7 +68,6 @@ export class EntryviewerComponent implements AfterViewInit  {
    *  for dropdown list, and calls survey change to populate Survey component with
    *  initial data.
    */
-  // TODO: This needs to be called after updates to make sure the list updates
   loadSurveyOptions(){
 
     // Call function for service to GET surveys from server
@@ -87,8 +77,6 @@ export class EntryviewerComponent implements AfterViewInit  {
     this.surveyService.getEmails().subscribe({
       next: (emails: string[]) => {
         this.surveyOptions = emails;
-        console.log(this.surveyOptions[0]);
-        this.onSurveyChange(this.surveyOptions[0]);
       },
       error: (err) => {
         console.error('Error fetching emails:', err);
@@ -106,7 +94,7 @@ export class EntryviewerComponent implements AfterViewInit  {
       date: surveyEntry.date,
       firstName: surveyEntry.firstName,
       lastName: surveyEntry.lastName,
-      country: surveyEntry.country || '', // Assuming you might need to handle cases where country could be undefined
+      country: surveyEntry.country || '', 
       streetAddress: surveyEntry.streetAddress,
       city: surveyEntry.city,
       state: surveyEntry.state,
@@ -132,28 +120,43 @@ export class EntryviewerComponent implements AfterViewInit  {
    */
   onSurveyChange(emailEntry: string) {
 
+    // Get the survey entry for the email
     console.log('Requested selected Survey:', emailEntry);
-    let surveyEntry = this.surveyService.getSurveyByEmail(emailEntry);
+    if (emailEntry.trim() !== ''){
 
-    // TODO: Send this data to populate form data to fill with server response
-    if (surveyEntry !== undefined){
-      this.populateFormData(surveyEntry);
-    } else {
-      //TODO: SOme error statement maybe
-    }
-    
+      // Get survey data from serice
+      let surveyEntry = this.surveyService.getSurveyByEmail(emailEntry);
 
-    // Perform any actions based on the selected survey here
+      // Disable submit button
+      this.surveyForm.disableForm()
+
+      // Send this data to populate form data to fill with server response
+      if (surveyEntry !== undefined){
+        this.populateFormData(surveyEntry);
+      } else {
+        try {
+          throw new Error("surveyEntry is undefined in onSurveyChange");
+        } catch (error) {
+          console.error("An error occurred:", error);
+        }
+      }
+    } 
   }
 
-  // TODO:
+  /**
+   *  Description: When the user hits edit, enable the from fields. 
+   */
   onEdit(){
-    console.log("Editing Form");
+    this.surveyForm.enableForm();
   }
 
-  // TODO:
-  onDelete(){
-    console.log("Deleting Form");
-    
+  /**
+   *  Description: Call function to send DELETE to server and reload page.
+   *  @param: selectedSurveyEmail - What the dropdown of emails is currently set to.
+   */
+  onDelete(selectedSurveyEmail: string){
+    console.log('Deleting:', selectedSurveyEmail);
+    this.surveyService.deleteByEmail(selectedSurveyEmail);
+    location.reload();
   }
 }
