@@ -54,15 +54,35 @@ export class SurveyService {
    *  @param: surveyData - Survey entry
    */
   handleSubmit(surveyData: any){
+    const email = surveyData.email;
 
-    this.postSurveyData(surveyData).subscribe({
-      next: (response) => {
-        console.log('Survey data sent successfully', response);
-      },
-      error: (err) => {
-        console.error('Error sending survey data', err);
-      }
-    });
+    // If we have the email already, use PUT
+    if (this.emails.includes(email)){
+      this.putSurveyData(email, surveyData).subscribe({
+        next: (response) => {
+          console.log('Survey data sent successfully', response);
+        },
+        error: (err) => {
+          console.error('Error sending survey data', err);
+        }
+      });
+    // If we don't have the email, use POST
+    } else {
+      this.postSurveyData(surveyData).subscribe({
+        next: (response) => {
+          console.log('Survey data sent successfully', response);
+        },
+        error: (err) => {
+          console.error('Error sending survey data', err);
+        }
+      });
+    }
+  }
+
+  putSurveyData(email: string, surveyData: any): Observable<any> {
+    const updateUrl = `${this.apiUrl}/${email}`; 
+    console.log("Sending survey data to server with PUT");  
+    return this.http.put<any>(updateUrl, surveyData, { responseType: 'text' as 'json' });
   }
 
   /**
@@ -70,7 +90,7 @@ export class SurveyService {
    *  @param: surveyData - Survey entry
    */
   postSurveyData(surveyData: any): Observable<any> {
-    console.log("Sending survey data to server");
+    console.log("Sending survey data to server with POST");
     return this.http.post<any>(this.apiUrl, surveyData, { responseType: 'text' as 'json' });
   }
 
