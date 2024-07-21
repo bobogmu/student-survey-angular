@@ -137,6 +137,7 @@ export class SurveyformComponent implements OnInit  {
     form.controls['phoneNumber'].markAsUntouched();
     form.controls['email'].markAsUntouched();
     console.log("Cleared form data");
+    location.reload();
   }
 
   /**
