@@ -17,6 +17,30 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { SurveyformComponent } from '../surveyform/surveyform.component';
 import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { SurveyService } from '../survey.service';
+
+// Define interface for survey responses
+interface StudentSurvey {
+  email: string;
+  firstName: string;
+  lastName: string;
+  country: string;
+  date: string;
+  streetAddress: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  phoneNumber: string;
+  likedMost_students: boolean;
+  likedMost_location: boolean;
+  likedMost_campus: boolean;
+  likedMost_atmosphere: boolean;
+  likedMost_dormRooms: boolean;
+  likedMost_sports: boolean;
+  howDidYouHear: string;
+  recommendationLikelihood: string;
+  additionalComments: string;
+}
 
 @Component({
   selector: 'app-entryviewer',
@@ -25,119 +49,80 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './entryviewer.component.html',
   styleUrl: './entryviewer.component.css'
 })
-export class EntryviewerComponent implements AfterViewInit {
+export class EntryviewerComponent implements AfterViewInit  {
+
+  constructor(private surveyService: SurveyService) { }
+
 
   @ViewChild(SurveyformComponent) surveyForm!: SurveyformComponent;
   
   /* TODO: This would be a list we would pull from the database, then we do GET on the option they select */
-  surveyOptions: string[] = ['email1@hotmail.com', 'email2@hotmail.com', 'email3@hotmail.com', 'email4@hotmail.com'];
+  surveyOptions: string[] = [];
 
   // The actively selected survey
   selectedSurvey: string = '';
 
-  // Called after view initializes
+  /**
+   *  Description: After view init, calls functions critical to first time load.
+   */
   ngAfterViewInit() {
-    // After the view is initialized, populate the form data
+    console.log("Loading survey options");
+    this.loadSurveyOptions();
+    
   }
 
-  populateFormData(emailEntry: string) {
 
-    // Ex: Entry 1
-    if(emailEntry === 'email1@hotmail.com'){
-      this.surveyForm.formData = {
-        date: '2024-07-18',
-        firstName: 'John',
-        lastName: 'Doe',
-        country: 'united_states',
-        streetAddress: '1600 Penn Ave',
-        city: 'Washington',
-        state: 'Virginia',
-        zipCode: '22405',
-        phoneNumber: '5551114444',
-        email: 'email1@hotmail.com',
-        likedMost_students: true,
-        likedMost_location: false,
-        likedMost_campus: false,
-        likedMost_atmosphere: true,
-        likedMost_dormRooms: false,
-        likedMost_sports: false,
-        howDidYouHear: 'friends',
-        recommendationLikelihood: 'very_likely',
-        additionalComments: 'Additional comments'
-      };
-    }
+  /**
+   *  Description: Tells service to get Surveys on init, updates surveyOptions
+   *  for dropdown list, and calls survey change to populate Survey component with
+   *  initial data.
+   */
+  // TODO: This needs to be called after updates to make sure the list updates
+  loadSurveyOptions(){
 
-    if(emailEntry === 'email2@hotmail.com'){
-      this.surveyForm.formData = {
-        date: '2024-07-18',
-        firstName: 'John',
-        lastName: 'Doe',
-        country: 'united_states',
-        streetAddress: '1600 Penn Ave',
-        city: 'Washington',
-        state: 'Virginia',
-        zipCode: '22405',
-        phoneNumber: '5551114444',
-        email: 'email2@hotmail.com',
-        likedMost_students: true,
-        likedMost_location: false,
-        likedMost_campus: false,
-        likedMost_atmosphere: true,
-        likedMost_dormRooms: false,
-        likedMost_sports: false,
-        howDidYouHear: 'friends',
-        recommendationLikelihood: 'very_likely',
-        additionalComments: 'Additional comments'
-      };
-    }
+    // Call function for service to GET surveys from server
+    this.surveyService.requestAllSurveys();
 
-    if(emailEntry === 'email3@hotmail.com'){
-      this.surveyForm.formData = {
-        date: '2024-07-18',
-        firstName: 'John',
-        lastName: 'Doe',
-        country: 'united_states',
-        streetAddress: '1600 Penn Ave',
-        city: 'Washington',
-        state: 'Virginia',
-        zipCode: '22405',
-        phoneNumber: '5551114444',
-        email: 'email3@hotmail.com',
-        likedMost_students: true,
-        likedMost_location: false,
-        likedMost_campus: false,
-        likedMost_atmosphere: true,
-        likedMost_dormRooms: false,
-        likedMost_sports: false,
-        howDidYouHear: 'friends',
-        recommendationLikelihood: 'very_likely',
-        additionalComments: 'Additional comments'
-      };
-    }
+    // Get emails as an Observable and set survey options.
+    this.surveyService.getEmails().subscribe({
+      next: (emails: string[]) => {
+        this.surveyOptions = emails;
+        console.log(this.surveyOptions[0]);
+        this.onSurveyChange(this.surveyOptions[0]);
+      },
+      error: (err) => {
+        console.error('Error fetching emails:', err);
+      }
+    });
+  }
 
-    if(emailEntry === 'email4@hotmail.com'){
-      this.surveyForm.formData = {
-        date: '2024-07-18',
-        firstName: 'John',
-        lastName: 'Doe',
-        country: 'united_states',
-        streetAddress: '1600 Penn Ave',
-        city: 'Washington',
-        state: 'Virginia',
-        zipCode: '22405',
-        phoneNumber: '5551114444',
-        email: 'email4@hotmail.com',
-        likedMost_students: true,
-        likedMost_location: false,
-        likedMost_campus: false,
-        likedMost_atmosphere: true,
-        likedMost_dormRooms: false,
-        likedMost_sports: false,
-        howDidYouHear: 'friends',
-        recommendationLikelihood: 'very_likely',
-        additionalComments: 'Additional comments'
-      };
-    }
+  /**
+   *  Description: Takes in a survey entry and sets the SurveyForm Element values accordingly.
+   *  @param: surveyEntry - a single survey entry following the StudentSurvey interface.
+   */
+  populateFormData(surveyEntry: StudentSurvey) {
+    
+    this.surveyForm.formData = {
+      date: surveyEntry.date,
+      firstName: surveyEntry.firstName,
+      lastName: surveyEntry.lastName,
+      country: surveyEntry.country || '', // Assuming you might need to handle cases where country could be undefined
+      streetAddress: surveyEntry.streetAddress,
+      city: surveyEntry.city,
+      state: surveyEntry.state,
+      zipCode: surveyEntry.zipCode,
+      phoneNumber: surveyEntry.phoneNumber,
+      email: surveyEntry.email,
+      likedMost_students: surveyEntry.likedMost_students,
+      likedMost_location: surveyEntry.likedMost_location,
+      likedMost_campus: surveyEntry.likedMost_campus,
+      likedMost_atmosphere: surveyEntry.likedMost_atmosphere,
+      likedMost_dormRooms: surveyEntry.likedMost_dormRooms,
+      likedMost_sports: surveyEntry.likedMost_sports,
+      howDidYouHear: surveyEntry.howDidYouHear,
+      recommendationLikelihood: surveyEntry.recommendationLikelihood,
+      additionalComments: surveyEntry.additionalComments
+    };
     
   }
 
@@ -146,20 +131,27 @@ export class EntryviewerComponent implements AfterViewInit {
    *  @param: emailEntry - email of the survey entry
    */
   onSurveyChange(emailEntry: string) {
-    console.log('Selected Survey:', emailEntry);
 
-    // TODO: Send request to database for emailEntry as key/id
+    console.log('Requested selected Survey:', emailEntry);
+    let surveyEntry = this.surveyService.getSurveyByEmail(emailEntry);
 
     // TODO: Send this data to populate form data to fill with server response
-    this.populateFormData(emailEntry);
+    if (surveyEntry !== undefined){
+      this.populateFormData(surveyEntry);
+    } else {
+      //TODO: SOme error statement maybe
+    }
+    
 
     // Perform any actions based on the selected survey here
   }
 
+  // TODO:
   onEdit(){
     console.log("Editing Form");
   }
 
+  // TODO:
   onDelete(){
     console.log("Deleting Form");
     

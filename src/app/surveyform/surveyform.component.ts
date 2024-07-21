@@ -9,8 +9,6 @@ import { HeaderComponent } from '../header/header.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { SurveyService } from '../survey.service';
 
 @Component({
@@ -127,8 +125,8 @@ export class SurveyformComponent implements OnInit  {
     form.controls['phoneNumber'].markAsUntouched();
     form.controls['email'].markAsUntouched();
     console.log("Cleared form data");
-    this.surveyService.testFunction();
-
+    //this.surveyService.getSurveys();
+    this.surveyService.requestAllSurveys();
   }
 
 }
